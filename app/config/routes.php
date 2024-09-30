@@ -1,3 +1,4 @@
+
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 /**
@@ -44,12 +45,6 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 */
 
 $router->get('/', 'User::read'); // It will Set User::read as the default route
-$router->get('/about-us', 'Welcome::about_us');
-$router->get('/contact-us', function() use ($router){
-echo 'OKAY LANG AKO' ;
-
-
-});
 
 $router->get('/users/display', 'User::read');
 $router->match('/users/create','User::create', array('GET', 'POST'));

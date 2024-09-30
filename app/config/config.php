@@ -1,3 +1,4 @@
+
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 /**
@@ -64,7 +65,7 @@ $config['VERSION']                 = '4.0';
 | -------------------------------------------------------------------
 | Values: development and production
 */
-$config['ENVIRONMENT']             = 'development';
+$config['ENVIRONMENT']             = 'production';
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +80,7 @@ $config['ENVIRONMENT']             = 'development';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] 				= '';
+$config['base_url'] 				= 'http://localhost:8000/';
 
 /*
 |--------------------------------------------------------------------------
@@ -90,7 +91,7 @@ $config['base_url'] 				= '';
 | variable to blank.
 |
 */
-$config['index_page']               = 'index.php';
+$config['index_page']               = '';
 
 /*
 |--------------------------------------------------------------------------
