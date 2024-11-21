@@ -20,6 +20,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             max-width: 100%;
             margin: 40px auto;
+            display: none; /* Initially hidden */
         }
 
         .search-create-row {
@@ -52,7 +53,7 @@
         }
 
         table tbody tr:hover {
-            background-color: #e9ecef;
+            cursor: pointer;
         }
 
         table td {
@@ -67,12 +68,6 @@
             font-size: 1.1rem;
             font-weight: bold;
             padding: 10px 20px;
-            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-        }
-
-        .btn-primary:hover {
-            background-color: #9c452b;
-            transform: scale(1.05);
         }
 
         .btn-warning {
@@ -82,32 +77,11 @@
             font-weight: bold;
         }
 
-        .btn-warning:hover {
-            background-color: #ec971f;
-            transform: scale(1.05);
-        }
-
         .btn-danger {
             background-color: #d9534f;
             border: none;
             font-size: 1.1rem;
             font-weight: bold;
-        }
-
-        .btn-danger:hover {
-            background-color: #c9302c;
-            transform: scale(1.05);
-        }
-
-        /* Hover effect for buttons */
-        a.btn {
-            margin: 0 5px;
-        }
-
-        /* Table container hover effect */
-        .table-container:hover {
-            transform: scale(1.02);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
         }
     </style>
 </head>
@@ -149,7 +123,7 @@
                                 <td><?= $p['idf_address']; ?></td>
                                 <td>
                                     <a href="/users/update/<?= $p['id']; ?>" class="btn btn-warning btn-sm">Update</a>
-                                    <a href="/users/delete/<?= $p['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                                    <a href="#" data-href="/users/delete/<?= $p['id']; ?>" class="btn btn-danger btn-sm delete-btn">Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -165,12 +139,43 @@
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function () {
+            // Fade in the table container on load
+            $('.table-container').fadeIn(1000);
+
+            // Initialize DataTable
             $('#myTable').DataTable({
-                "pageLength": 5, 
-                "lengthMenu": [5, 10, 25, 50],
-                "order": [[0, 'asc']], /* Orders by ID by default */
+                "pageLength": 10,
+                "lengthMenu": [10, 25, 50],
+                "order": [[0, 'asc']], // Orders by ID by default
             });
+
+            // Highlight row on hover
+            $('#myTable tbody').on('mouseenter', 'tr', function () {
+                $(this).css('background-color', '#ffe4c4'); // Light brown
+            }).on('mouseleave', 'tr', function () {
+                $(this).css('background-color', '');
+            });
+
+            // Custom delete confirmation
+            $('.delete-btn').on('click', function (e) {
+                e.preventDefault();
+                const href = $(this).data('href');
+                const confirmed = confirm('Are you sure you want to delete this user?');
+                if (confirmed) {
+                    window.location.href = href;
+                }
+            });
+
+            // Add hover effect on buttons
+            $('a.btn').hover(
+                function () {
+                    $(this).css('transform', 'scale(1.05)');
+                },
+                function () {
+                    $(this).css('transform', '');
+                }
+            );
         });
     </script>
 </body>
